@@ -22,8 +22,8 @@
       "react-app/jest"
     ],
     "globals": {
-      "Cypress":true,
-      "cy":true
+      "Cypress": true,
+      "cy": true
     }
   },
   "browserslist": {
@@ -45,6 +45,10 @@
     "@cypress/webpack-dev-server": "^1.1.6",
     "@testing-library/cypress": "^7.0.6",
     "cypress": "^7.2.0",
-    "cypress-react-selector": "^2.3.6"
+    "cypress-react-selector": "^2.3.6",
+    "msw": "^0.28.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
