@@ -1,28 +1,31 @@
-import React from "react";
-import { mount } from "@cypress/react";
-import { setupWorker } from 'msw'
+import React from 'react'
+import { mount } from '@cypress/react'
+
+const Todolist = ({ children }) => {
+  const [todos, setTodos] = React.useState()
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+      const data = await res.json()
+      setTodos(data)
+      console.log({ data })
+    }
+
+    fetchData()
+  }, [])
+
+  return (
+    <h2>
+      {children} {JSON.stringify(todos)}
+    </h2>
+  )
+}
 
 describe('<Login>', () => {
-  // eslint-disable-next-line no-undef
-  before(() => {
-    setupWorker()
-    // commenting the method start makes the tests run fine. keeping it brings to weird test loop
-    .start({
-      serviceWorker: {
-        url: '/public/mockServiceWorker.js',
-      }
-    })
-  })
-
   it('Test 1', () => {
-    mount(<button>Hello</button>) 
-      .get('button')
+    mount(<Todolist>Hello</Todolist>)
+      .get('Todolist')
       .should('exist')
-  })
-
-  it('Test 2', () => {
-    mount(<button>Something went wrong!</button>) 
-      .get('body')
-      .findByText('Something went wrong!').should('exist')
   })
 })

@@ -24,3 +24,21 @@ import "../../src/index.css";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+import { setupWorker, rest } from 'msw'
+
+let worker = setupWorker()
+
+worker.start({
+  serviceWorker: {
+    url: '/public/mockServiceWorker.js',
+  },
+})
+
+worker.use([rest.get('https://jsonplaceholder.typicode.com/todos/1', (req, res, ctx) => {
+  console.log('intercepted')
+  return res(
+    ctx.json({
+      task: 'Do laundry',
+    })
+  )
+})])

@@ -74,6 +74,8 @@ export default function LoginWithReducer() {
   };
 
   useEffect(() => {
+    console.log('hello')
+    fetch('hello')
     if (isFocused) {
       usernameRef.current.focus();
     }
